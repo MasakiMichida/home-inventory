@@ -1,0 +1,48 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: home-inventory-db
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: home_inventory
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: app
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U app -d home_inventory"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    container_name: home-inventory-api
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/home_inventory
+      SPRING_DATASOURCE_USERNAME: app
+      SPRING_DATASOURCE_PASSWORD: app
+    depends_on:
+      db:
+        condition: service_healthy
+
+  front:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: home-inventory-front
+    ports:
+      - "5173:5173"
+    depends_on:
+      - api
+    volumes:
+    - ./frontend:/app
+    - /app/node_modules
+
+volumes:
+  db_data:

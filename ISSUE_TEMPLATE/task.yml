@@ -1,0 +1,38 @@
+name: Task / Spike
+description: 作業や調査の記録
+title: "[Task] "
+labels: []
+body:
+  - type: textarea
+    attributes:
+      label: 目的（Why）
+      description: なぜやる？何が困っている？
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: やること（What）
+      description: 箇条書きでOK
+      value: |
+        - [ ] 
+        - [ ] 
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: 完了条件（Definition of Done）
+      description: これが満たせたらCloseする
+      value: |
+        - [ ] ローカルで起動できる
+        - [ ] 動作確認できた（手順も書く）
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: メモ（詰まった点 / 解決策 / 参考リンク）
+      description: 後で自分が助かるやつ
+    validations:
+      required: false

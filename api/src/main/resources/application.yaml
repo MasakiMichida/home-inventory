@@ -1,3 +1,7 @@
 spring:
   application:
     name: home-inventory-api
+  datasource:
+    url: jdbc:postgresql://localhost:5432/home_inventory
+    username: app
+    password: app

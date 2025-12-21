@@ -41,8 +41,8 @@ services:
     depends_on:
       - api
     volumes:
-    - ./frontend:/app
-    - /app/node_modules
+      - ./frontend:/app
+      - /app/node_modules
 
 volumes:
   db_data:
